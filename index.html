@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Login Page</title>
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body, html {
+      height: 100%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .login-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+      max-width: 360px;
+      width: 100%;
+      padding: 30px 40px;
+      text-align: center;
+      user-select: none;
+    }
+    h2 {
+      margin-bottom: 24px;
+      color: #4a4a4a;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      border: 2px solid #d1d1d1;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      outline-offset: 2px;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #667eea;
+      outline: none;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #667eea;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: #5a67d8;
+    }
+    .message {
+      margin-top: 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #d9534f; /* default red for error */
+      min-height: 26px;
+    }
+    .message.success {
+      color: #28a745;
+    }
+    /* Responsive fit for mobile */
+    @media (max-width: 400px) {
+      .login-container {
+        padding: 24px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container" role="main">
+    <h2>Login</h2>
+    <form id="loginForm" novalidate>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" autocomplete="username" required aria-required="true" aria-describedby="usernameHelp" />
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required aria-required="true" />
+      <button type="submit" aria-label="Login Button">Log In</button>
+    </form>
+    <div role="alert" aria-live="polite" class="message" id="message"></div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const form = document.getElementById('loginForm');
+      const messageEl = document.getElementById('message');
+
+      // Hardcoded credentials for demo purpose
+      const validUsername = 'user';
+      const validPassword = 'password123';
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const username = form.username.value.trim();
+        const password = form.password.value;
+
+        if (!username || !password) {
+          messageEl.textContent = 'Please fill in both username and password.';
+          messageEl.className = 'message';
+          return;
+        }
+
+        // Simple validation check (hardcoded)
+        if (username === validUsername && password === validPassword) {
+          messageEl.textContent = 'Login successful! Redirecting...';
+          messageEl.className = 'message success';
+
+          // Simulate redirect after delay
+          setTimeout(() => {
+            messageEl.textContent = '';
+            form.reset();
+            alert('Welcome to the site, ' + username + '!');
+          }, 1500);
+
+        } else {
+          messageEl.textContent = 'Invalid username or password.';
+          messageEl.className = 'message';
+          form.password.value = '';
+          form.password.focus();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
